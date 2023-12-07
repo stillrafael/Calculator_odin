@@ -39,10 +39,17 @@ let operationPending = false
 let operator1 = ''
 let operator2 = ''
 let operation = ''
+let result
 function addition () {
         
         if (operationPending) {
-            operator2 = display.value
+            if (holdingOperator.textContent != '') {
+                operator2 = holdingOperator.textContent
+            }
+            else {
+                operator2 = display.value
+
+            }
             let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
             holdingOperator.textContent = result
             operation = 'add'
@@ -53,6 +60,14 @@ function addition () {
         else {
             operation = 'add'
             operator1 = display.value
+            if (holdingOperator.textContent != '') {
+                operator2 = holdingOperator.textContent
+                operator1 = display.value
+                result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+                holdingOperator.textContent = result
+                
+            }
+
             updateDisplay('clear')
             operationPending = true
             
@@ -122,6 +137,7 @@ function resultKey() {
     if (operation !== '') {
         if (holdingOperator.textContent != '' ) {
             operator2 = holdingOperator.textContent
+            operator1 = display.value
         }
         else {
             operator2 = display.value
