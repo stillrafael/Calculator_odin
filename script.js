@@ -1,4 +1,4 @@
-
+const display = document.querySelector('#display')
 //functions 
 function addOp(operator1, operator2) {
     return operator1 + operator2 
@@ -40,13 +40,15 @@ let operator1 = ''
 let operator2 = ''
 let operation = ''
 function addition () {
+        
         if (operationPending) {
             operator2 = display.value
             let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-            changeDisplay(result)
+            holdingOperator.textContent = result
+            operation = 'add'
+            updateDisplay('clear')
             operator2 = ''
             operationPending = false
-            operation = ''
         }
         else {
             operation = 'add'
@@ -61,7 +63,12 @@ function addition () {
 function subtraction() {
 
     if (operationPending) {
-        operator2 = display.value   
+        if (holdingOperator != '') {
+            operator2 = display.value
+        }
+        else {
+            operator2 = display.value   
+        }
         let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
         changeDisplay(result)
         operator2 = ''
@@ -113,13 +120,18 @@ function division() {
 
 function resultKey() {
     if (operation !== '') {
-        if (operator2 == '') {
+        if (holdingOperator.textContent != '' ) {
+            operator2 = holdingOperator.textContent
+        }
+        else {
             operator2 = display.value
         }
         let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
         changeDisplay(result)
         operationPending = false
+        holdingOperator.textContent = ''
     }
+    operation = ''
 }
 
 
@@ -179,7 +191,7 @@ function press1 () {
 updateDisplay(5)
 
 let holdingOperator = document.querySelector('p')
-
+holdingOperator.value = 1
  let button1 = document.querySelector('#button1')
  button1.addEventListener('click', press1)
 
