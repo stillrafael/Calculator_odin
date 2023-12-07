@@ -1,0 +1,70 @@
+pseudocode
+
+calculadora estilo a do windows feita em javascript
+layout basico com linhjas de botoes e coluna com operadores
+calculadores dessas funcionam digitando um primeiro numero
+clicando num operador
+digitando o segundo numero 
+clicando no resultado
+mostra o resultado
+
+
+
+usuario digita primeiro numero
+
+
+clica no operador, 
+guarda qual é operação à ser feita, Ka
+o display limpa, 
+
+
+usuario digita segundo numero
+
+clica no resultado,
+efetuar operacao digitada
+mostra resultado
+
+clicar novos numeros limpa o display e volta pro inicio
+
+clicar operadores volta pra Ka
+
+
+primeiramente todos os botoeos tem que fazer os numeros aparecerem no display
+entao primeiro tem que ter display 
+depois os botoes tem que digitar numeros
+depois os operadores marcam qual a operação vai ser feita 
+
+aqui vem um entre, voce tem que criar testes automatizados pra testar
+todas as funcoes da calculadora - feitos sem teste, era muito simples
+
+depois o igual tem que fazer a operação
+mostrar no display
+e o usuario pode continuar usando, tal qual estivesse comecado 
+
+
+depois pode colocar um botao de Backspack ou (C) que acho que seja clear
+
+
+
+
+antes que esqueça, talvez seja possivel criar os botões de numerais
+atraves de um loop que meramente retorne em qual iteração ele foi criado
+como o próprio número a ser digitado, o que economizaria um espaço no 
+html e demonstraria um requinte. mas o requintado é inimigo do pronto,
+então primeiro faz, depois modifica
+
+
+há dois comportamentos a serem alterados
+primeiramente, quando o usuario clica uma operação, seguida de outra operação
+o resultado deve ser primeiro mostrado, e só então calculado o resultado 
+da nova operação
+
+primeiramente, se o display estiver vazio, apenas a varivel que define
+qual a operação deve ser mudada, sem alterar o operador da memória
+
+
+o funcionamento precisa ser de tal maneira que, o operador para o proximo 
+numero é o numero do display
+
+
+qual o problema atual? ao clicar em duas operações seguidas sem clicar no igual, ao inves de resolver a primeira operação, ele resolve a que está na tela

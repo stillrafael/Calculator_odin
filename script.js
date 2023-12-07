@@ -1,29 +1,137 @@
+
 //functions 
+function addOp(operator1, operator2) {
+    return operator1 + operator2 
+}
 
-let operator1
-let operator2
-let operand 
+function subOp(operator1, operator2) {
+    return operator1 - operator2
+}
+
+function divOp (operator1, operator2) {
+    return operator1 / operator2
+}
+
+function MulOp (operator1, operator2) {
+    return operator1 * operator2
+}
+
+function calcResult (operation, operator1, operator2) {
+    if (operation == 'add') {
+        return addOp(operator1, operator2)
+    }
+    else if (operation == 'sub') {
+        return subOp(operator1, operator2)
+    }
+    else if (operation == 'div') {
+        return divOp(operator1, operator2)
+    }
+    else if (operation == 'mul') {
+        return MulOp(operator1, operator2)
+    }
+}
+
+function changeDisplay (change) {
+    return display.value = change
+}
+
+let operationPending = false
+let operator1 = ''
+let operator2 = ''
+let operation = ''
 function addition () {
-    operator1 = display.value
-    updateDisplay('clear')
-    operand = 'plus'   
+        if (operationPending) {
+            operator2 = display.value
+            let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+            changeDisplay(result)
+            operator2 = ''
+            operationPending = false
+            operation = ''
+        }
+        else {
+            operation = 'add'
+            operator1 = display.value
+            updateDisplay('clear')
+            operationPending = true
+            
+        }
+    
 }
 
-function subtraction () {
-    operator1 = display.value
-    updateDisplay('clear')
-    operand = 'minus'}
+function subtraction() {
 
-function multiply () {
-    operator1 = display.value
-    updateDisplay('clear')
-    operand = 'multi'}
-
-function division () {
-    operator1 = display.value
-    updateDisplay('clear')
-    operand = 'divi'
+    if (operationPending) {
+        operator2 = display.value   
+        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+        changeDisplay(result)
+        operator2 = ''
+        operationPending = false
+        operation = ''
+    }
+    else {
+        operation = 'sub'
+        operator1 = display.value
+        updateDisplay('clear')
+        operationPending = true
+    }
 }
+
+function multiply() {
+
+    if (operationPending) {
+        operator2 = display.value
+        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+        changeDisplay(result)
+        operator2 = ''
+        operationPending = false
+        operation = ''
+    }
+    else {
+        operation = 'mul'
+        operator1 = display.value
+        updateDisplay('clear')
+        operationPending = true
+        }
+    }
+
+function division() {
+    if (operationPending) {
+        operator2 = display.value
+        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+        changeDisplay(result)
+        operator2 = ''
+        operationPending = false
+        operation = ''
+    }
+    else {
+        operation = 'div'
+        operator1 = display.value
+        updateDisplay('clear')
+        operationPending = true
+    }
+}
+
+function resultKey() {
+    if (operation !== '') {
+        if (operator2 == '') {
+            operator2 = display.value
+        }
+        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+        changeDisplay(result)
+        operationPending = false
+    }
+}
+
+
+function updateDisplay (keypress) {
+    if (keypress == 'clear') {
+        display.value = ''
+    }
+    else {
+        display.value += keypress
+        }
+}
+
 
 function press1 () {
     return updateDisplay(1)
@@ -65,52 +173,12 @@ function press1 () {
     return updateDisplay(0)
     }
     
-                                                  
+   
 
-function result() {
-    operator2 = display.value
-    updateDisplay('clear')
-    try {
-    if (operand == 'plus') {
-        return display.value = Number(operator1) + Number(operator2)
-    }
-    else if (operand == 'minus') {
-        return display.value = Number(operator1) - Number(operator2)
-    }
-    else if (operand == 'divi') {
-        return display.value = Number(operator1) / Number(operator2)
-    }
-    else if (operand == 'multi') {
-        return display.vvalue = Number(operator1) * Number(operand2)
-    }
-}
-    finally {
-        operand = ''
-    }
-}
-
-//segure o impulso a principio de recriar todos os botões usando um loop
-//e na proxima vez que vier aqui, falta o botão de igual que deve pegar
-//o operador e só então fazer a operação
-//minha ideia inicial é fazer cada função operador mudar uma certa variável
-//que está sendo esperada para ser comparada e saber que tipo de operação deve
-// ser feita com o numero, pra então apenas retornar o resultado dentro de
-//outra função
-
-
-
-function updateDisplay (keypress) {
-    if (keypress == 'clear') {
-        display.value = ''
-    }
-    else {
-        display.value += keypress
-        }
-}
 //page
 updateDisplay(5)
 
-
+let holdingOperator = document.querySelector('p')
 
  let button1 = document.querySelector('#button1')
  button1.addEventListener('click', press1)
@@ -145,8 +213,8 @@ button0.addEventListener('click', press0)
 let buttonPlus = document.querySelector('#buttonPlus')
 buttonPlus.addEventListener('click', addition)
 
-let buttonMinus = document.querySelector('#buttonMinus')
-buttonMinus.addEventListener('click', subtraction)
+ let buttonMinus = document.querySelector('#buttonMinus')
+ buttonMinus.addEventListener('click', subtraction)
 
 let buttonDivision = document.querySelector('#buttonDivision')
 buttonDivision.addEventListener('click', division)
@@ -155,6 +223,6 @@ let buttonMultiply = document.querySelector('#buttonMultiply')
 buttonMultiply.addEventListener('click', multiply)
 
 let buttonResult = document.querySelector('#buttonResult')
-buttonResult.addEventListener('click', result)
+buttonResult.addEventListener('click', resultKey)
 
 //layout
