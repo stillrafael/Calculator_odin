@@ -1,3 +1,90 @@
+function addition () {
+    if (operation == '') {
+        operation = 'add'
+        resultKey()
+    
+    }
+    else {
+        resultKey()
+        holdingOperator.textContent = 'add'
+        waiting = true
+    }
+}
+
+function subtraction () {
+    if (operation == '') {
+        operation ='sub'
+        resultKey()
+       }
+       else {
+        resultKey()
+        holdingOperator.textContent  = 'sub'
+        waiting = true
+       }
+    }
+
+function multiply () {
+    if (operation == '') {
+        operation = 'mul'
+        resultKey()
+    }
+   else {
+    resultKey()
+    holdingOperator.textContent  = 'mul'
+    waiting = true
+   }
+}
+
+function division () {
+    if (operation == '') {
+        operation = 'div'
+        resultKey()
+    }
+   else {
+    resultKey()
+    holdingOperator.textContent  = 'div'
+    waiting = true
+   }
+}
+
+
+function resultKey () {
+        if (waiting) {
+            if (resultingNumber.textContent == '') {
+                operator2 = display.value
+
+            }
+            else {
+                operator2 = resultingNumber.textContent
+                operator1 = display.value
+            }
+            result = calcResult(operation, parseInt(operator1), parseInt(operator2))
+            giveResult(result)
+            updateDisplay('clear')
+            waiting = false
+            operation = ''
+            holdingOperator.textContent = ''
+        }
+        else {
+            operator1 = display.value
+            updateDisplay('clear')
+            holdingOperator.textContent = operation
+            waiting = true
+            operator2 = ''
+            
+            
+        }
+    }
+  
+    
+
+
+function giveResult(option) {
+    return resultingNumber.textContent = option
+}
+
+let waiting = false
+
 const display = document.querySelector('#display')
 //functions 
 function addOp(operator1, operator2) {
@@ -39,117 +126,7 @@ let operationPending = false
 let operator1 = ''
 let operator2 = ''
 let operation = ''
-let result
-function addition () {
-        
-        if (operationPending) {
-            if (holdingOperator.textContent != '') {
-                operator2 = holdingOperator.textContent
-            }
-            else {
-                operator2 = display.value
-
-            }
-            let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-            holdingOperator.textContent = result
-            operation = 'add'
-            updateDisplay('clear')
-            operator2 = ''
-            operationPending = false
-        }
-        else {
-            operation = 'add'
-            operator1 = display.value
-            if (holdingOperator.textContent != '') {
-                operator2 = holdingOperator.textContent
-                operator1 = display.value
-                result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-                holdingOperator.textContent = result
-                
-            }
-
-            updateDisplay('clear')
-            operationPending = true
-            
-        }
-    
-}
-
-function subtraction() {
-
-    if (operationPending) {
-        if (holdingOperator != '') {
-            operator2 = display.value
-        }
-        else {
-            operator2 = display.value   
-        }
-        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-        changeDisplay(result)
-        operator2 = ''
-        operationPending = false
-        operation = ''
-    }
-    else {
-        operation = 'sub'
-        operator1 = display.value
-        updateDisplay('clear')
-        operationPending = true
-    }
-}
-
-function multiply() {
-
-    if (operationPending) {
-        operator2 = display.value
-        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-        changeDisplay(result)
-        operator2 = ''
-        operationPending = false
-        operation = ''
-    }
-    else {
-        operation = 'mul'
-        operator1 = display.value
-        updateDisplay('clear')
-        operationPending = true
-        }
-    }
-
-function division() {
-    if (operationPending) {
-        operator2 = display.value
-        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-        changeDisplay(result)
-        operator2 = ''
-        operationPending = false
-        operation = ''
-    }
-    else {
-        operation = 'div'
-        operator1 = display.value
-        updateDisplay('clear')
-        operationPending = true
-    }
-}
-
-function resultKey() {
-    if (operation !== '') {
-        if (holdingOperator.textContent != '' ) {
-            operator2 = holdingOperator.textContent
-            operator1 = display.value
-        }
-        else {
-            operator2 = display.value
-        }
-        let result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-        changeDisplay(result)
-        operationPending = false
-        holdingOperator.textContent = ''
-    }
-    operation = ''
-}
-
+let result = ''
 
 function updateDisplay (keypress) {
     if (keypress == 'clear') {
@@ -207,9 +184,11 @@ function press1 () {
 updateDisplay(5)
 
 let holdingOperator = document.querySelector('p')
-holdingOperator.value = 1
- let button1 = document.querySelector('#button1')
- button1.addEventListener('click', press1)
+
+let resultingNumber = document.querySelector('#showingResult')
+
+let button1 = document.querySelector('#button1')
+button1.addEventListener('click', press1)
 
 let button2 = document.querySelector('#button2')
 button2.addEventListener('click', press2)
