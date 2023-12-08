@@ -1,89 +1,86 @@
 function addition () {
-    if (operation == '') {
-        operation = 'add'
-        resultKey()
-    
-    }
-    else {
-        resultKey()
-        holdingOperator.textContent = 'add'
-        waiting = true
-    }
+    buttonpress = true
+    updateOperator('add')
+    resultKey('add')
+    buttonpress = false
 }
 
 function subtraction () {
-    if (operation == '') {
-        operation ='sub'
-        resultKey()
-       }
-       else {
-        resultKey()
-        holdingOperator.textContent  = 'sub'
-        waiting = true
-       }
-    }
+    buttonpress = true
+    updateOperator('sub')
+    resultKey('sub')
+    buttonpress = false
+
+}
 
 function multiply () {
-    if (operation == '') {
-        operation = 'mul'
-        resultKey()
-    }
-   else {
-    resultKey()
-    holdingOperator.textContent  = 'mul'
-    waiting = true
-   }
+    buttonpress = true
+    updateOperator('mul')
+    resultKey('mul')
+    buttonpress = false
+
 }
 
 function division () {
-    if (operation == '') {
-        operation = 'div'
-        resultKey()
-    }
-   else {
-    resultKey()
-    holdingOperator.textContent  = 'div'
-    waiting = true
-   }
+    buttonpress = true
+    updateOperator('div')
+    resultKey('div')
+    buttonpress = false
+
 }
-
-
-function resultKey () {
-        if (waiting) {
-            if (resultingNumber.textContent == '') {
-                operator2 = display.value
-
-            }
-            else {
+let operator1 = ''
+let operator2 = ''
+let operation = ''
+let result
+let buttonpress = false
+function resultKey (argument) {
+    if (buttonpress == true) {
+        if (resultingNumber.textContent == '') {
+            operator1 = display.value
+            updateResult(operator1)
+            updateDisplay('clear')
+        }
+            else if (holdingOperator.textContent != ''){
                 operator2 = resultingNumber.textContent
                 operator1 = display.value
+                result = calcResult(argument, parseInt(operator1), parseInt(operator2))
+                updateDisplay('clear')
+                updateResult(result)
+                buttonpress = false
+                
             }
-            result = calcResult(operation, parseInt(operator1), parseInt(operator2))
-            giveResult(result)
-            updateDisplay('clear')
-            waiting = false
-            operation = ''
-            holdingOperator.textContent = ''
+            
         }
         else {
-            operator1 = display.value
-            updateDisplay('clear')
-            holdingOperator.textContent = operation
-            waiting = true
-            operator2 = ''
-            
-            
+           if (display.value != '') {
+            let currentOperation = holdingOperator.textContent
+            operator2 = display.value
+            operator1 = resultingNumber.textContent
+            result = calcResult(currentOperation, parseInt(operator1), parseInt(operator2))
+            changeDisplay(result)
+            updateOperator('')
+            updateResult('')
+
+
+           }
         }
     }
-  
     
 
 
-function giveResult(option) {
-    return resultingNumber.textContent = option
-}
+//changeDisplay                 //pra alterar o campo que voce digita. integral
+//display.value                  //pra consultar o valor no campo digitado
+//updateDisplay('clear')        //limpar o campo de digitar
+// updateOperator               // pra alterar qual a operação que está sendo feita
+// holdingOperator.textContent  //pra verificar qual a string da operação
+// }
 
-let waiting = false
+
+
+// updateResult                // pra alterar o numero
+// resultingNumber.textContent //pra verificar qual o valor dentro //resulting number é onde é pra jogar o resultado
+// }
+
 
 const display = document.querySelector('#display')
 //functions 
@@ -122,11 +119,6 @@ function changeDisplay (change) {
     return display.value = change
 }
 
-let operationPending = false
-let operator1 = ''
-let operator2 = ''
-let operation = ''
-let result = ''
 
 function updateDisplay (keypress) {
     if (keypress == 'clear') {
@@ -137,6 +129,15 @@ function updateDisplay (keypress) {
         }
 }
 
+function updateOperator (operator) {
+    return holdingOperator.textContent = operator
+}
+
+
+
+function updateResult (result) {
+    return resultingNumber.textContent = result
+}
 
 function press1 () {
     return updateDisplay(1)
