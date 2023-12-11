@@ -1,30 +1,34 @@
 function addition () {
     buttonpress = true
-    updateOperator('add')
     resultKey('add')
+    updateOperator('add')
+
     buttonpress = false
 }
 
 function subtraction () {
     buttonpress = true
-    updateOperator('sub')
     resultKey('sub')
+    updateOperator('sub')
+
     buttonpress = false
 
 }
 
 function multiply () {
     buttonpress = true
-    updateOperator('mul')
     resultKey('mul')
+    updateOperator('mul')
+
     buttonpress = false
 
 }
 
 function division () {
     buttonpress = true
-    updateOperator('div')
     resultKey('div')
+    updateOperator('div')
+
     buttonpress = false
 
 }
@@ -32,25 +36,36 @@ let operator1 = ''
 let operator2 = ''
 let operation = ''
 let result
+let whoareyou
 let buttonpress = false
 function resultKey (argument) {
     if (buttonpress == true) {
+        whoareyou = argument
         if (resultingNumber.textContent == '') {
             operator1 = display.value
             updateResult(operator1)
             updateDisplay('clear')
         }
-            else if (holdingOperator.textContent != ''){
-                operator2 = resultingNumber.textContent
-                operator1 = display.value
+            else if (holdingOperator.textContent == argument){
+                operator1 = resultingNumber.textContent
+                operator2 = display.value
                 result = calcResult(argument, parseInt(operator1), parseInt(operator2))
                 updateDisplay('clear')
                 updateResult(result)
                 buttonpress = false
                 
             }
-            
+            else {
+                operator1 = resultingNumber.textContent
+                operator2 = display.value
+                result = calcResult(holdingOperator.textContent, parseInt(operator1), parseInt(operator2))
+                updateResult(result)
+                updateDisplay('clear')
+
+            }
+                
         }
+
         else {
            if (display.value != '') {
             let currentOperation = holdingOperator.textContent
